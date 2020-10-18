@@ -3,7 +3,6 @@
 void _Memory::init(const char* name, bool createMode)
 {
 	reset();
-	cout << "Init" << "\n";
 	this->name = name;
 	this->createMode = createMode;
 }

@@ -27,7 +27,7 @@ public:
 
 	void* read();
 	bool write(const char* data);
-	
+	bool write(double* data);
 	void* create(size_t) override;
 	void* open(size_t) override;
 	void* close() override;

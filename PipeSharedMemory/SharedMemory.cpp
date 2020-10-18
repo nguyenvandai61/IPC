@@ -18,8 +18,14 @@ void* SharedMemory::read()
 {
 	void* pt = open(1024);
 	char* pchar = (char*)pt;
+	cout << "Doc du lieu kieu text\n";
 	for (int i = 0; i < 5; i++) {
 		printf("Data[%d] = %3d\n", i, pchar[i]);
+	}
+
+	cout << "Doc du lieu kieu double\n";
+	for (int i = 0; i < 5; i++) {
+		printf("Data[%d] = %lf\n", i, *((double*)pt+i));
 	}
 	return pchar;
 }
@@ -29,8 +35,30 @@ bool SharedMemory::write(const char* data)
 	if (data == nullptr) 
 		return false;
 	void* p = open(1024);
+
+	cout << "San sang ghi du lieu \n";
 	CopyMemory((PVOID)p, data, strlen(data)* sizeof(char));
-	cout << "Hello";
+	for (int i = 0; i < 8; i++) {
+		cout << "Data sau khi ghi vao" << *((PVOID*)p+i) << "\n ";
+	}
+	cout << "\nHello\n";
+	return true;
+}
+
+bool SharedMemory::write(double* data)
+{
+
+	if (data == nullptr)
+		return false;
+
+	p = open(1024);
+	cout << "San sang ghi du lieu \n";
+	//const char* s = data;
+	cout << "Noidung ghi: " << data;
+	CopyMemory((PVOID)p, data, sizeof(double));
+	for (int i = 0; i < 8; i++) {
+		cout << "Data an sau khi ghi vao:" << *((double*)(PVOID*)p+i) << "\n ";
+	}
 	return true;
 }
 
@@ -40,6 +68,7 @@ bool SharedMemory::write(const char* data)
 
 void* SharedMemory::create(size_t bufsize)
 {
+	cout << "Creating a SharedMemory\n";
 	HANDLE pageFile = INVALID_HANDLE_VALUE;
 	LPSECURITY_ATTRIBUTES securAttrs = NULL;
 	DWORD access = PAGE_READWRITE;
@@ -55,10 +84,14 @@ void* SharedMemory::create(size_t bufsize)
 		perror("err");
 		return 0;
 	}
-	return NULL;
+
+	cout << "Success in Creating\n";
+	return p;
 }
 
 void* SharedMemory::open(size_t bufsize) {
+
+	cout << "Opening a SharedMemory\n";
 	DWORD access = FILE_MAP_ALL_ACCESS;
 	BOOL inherit = FALSE;
 	mappingHandle = OpenFileMapping(access, inherit, name.c_str());
@@ -74,11 +107,14 @@ void* SharedMemory::open(size_t bufsize) {
 		perror("MapViewOfFile");
 		return 0;
 	}
+	cout << "Success in Opening SharedMemory\n";
 	return p;
 }
 
 void* SharedMemory::close()
 {
+
+	cout << "Closing a SharedMemory\n";
 	if (p)
 		UnmapViewOfFile(p);
 	if (mappingHandle > 0) CloseHandle(mappingHandle);

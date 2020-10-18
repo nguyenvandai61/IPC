@@ -9,6 +9,7 @@ class ProcessA: public Process
 public:
 	void GUI();
 	void run();
-	void sendData(const char*);
+	void sendData(const char* , const char*);
+	void* getData(const char*);
 };
 

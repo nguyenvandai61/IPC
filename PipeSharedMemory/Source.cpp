@@ -8,58 +8,14 @@
 
 #include <thread>
 using namespace std;
-//
-//// Create and Open Shared memory
-//SharedMemory shm_obj
-//(	
-//	create_only                  //only create
-//	, "shared_memory"              //name
-//	, read_write                   //read-write mode
-//);
-//
-//SharedMemory shm_obj
-//(
-//	open_or_create               //open or create
-//	, "shared_memory"              //name
-//	, read_only                    //read-only mode
-//);
-//
-//SharedMemory shm_obj
-//(
-//	open_only                    //only open
-//	, "shared_memory"              //name
-//	, read_write                   //read-write mode
-//);
-//
-//// Destroy shared memory;
-//SharedMemory::remove("shared_memory");
-//
-//shm_obj.truncate(10000);
-//
-//int main()
-//{
-//	/*cout << "Write Data : ";
-//
-//	printf("Data written in memory:\n");
-//	char exp[] = "5+6*2-3\0";
-//	Evaluate evaluate;
-//	double res = evaluate.calc(exp);
-//	printf(exp);
-//	printf("%lf\n", res);*/
-//
-//
-//
-//
-//	return 0;
-//}
-
 
 int main() {
-	cout << "Bat dau";
+	cout << "Bat dau\n";
 	// Tao ra 1 duong ong
-	_Pipe* pipe = new _Pipe();
+	//_Pipe* pipe = new _Pipe();
+	SharedMemory* sharedMemory = new SharedMemory("SharedMemory1", true);
 	// Pid cua ong
-	cout << pipe->getPid();
+	//cout << pipe->getPid();
 	// Tao 1 Process
 	ProcessA* process1 = new ProcessA();
 	/*cout << process1->getPid();
@@ -77,6 +33,9 @@ int main() {
 
 	//f1.join();
 	//f2.join();
-	process1->sendData("6*5-3");
+	process1->sendData("6*5-3*2", "SharedMemory1");
+	process2->process("SharedMemory1");
+	double res = *(double*)process1->getData("SharedMemory1");
+	cout << "Day la ket qua: " << res;
 	return 0;
 }
