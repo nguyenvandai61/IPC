@@ -52,3 +52,7 @@ void ProcessB::process(const char* shmName)
 	cout << "Ket qua la " << *(double*)response << "\n";
 	sendData(response, shmName);
 }
+
+//int main(int argc, char* argv[]) {
+//	ProcessB* process2 = new ProcessB();
+//}

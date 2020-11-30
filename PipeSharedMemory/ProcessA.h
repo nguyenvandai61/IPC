@@ -10,6 +10,8 @@ public:
 	void GUI();
 	void run();
 	void sendData(const char* , const char*);
+	void sendDataPipe(const char*, const char*);
 	void* getData(const char*);
+	void* getDataPipe(const char*);
 };
 

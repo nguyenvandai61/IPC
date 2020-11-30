@@ -84,7 +84,6 @@ void* SharedMemory::create(size_t bufsize)
 		perror("err");
 		return 0;
 	}
-
 	cout << "Success in Creating\n";
 	return p;
 }
