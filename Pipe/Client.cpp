@@ -9,13 +9,14 @@ int main()
         char buffer[] = "6+3*5";
         DWORD bytesRead;
         DWORD bytesWritten;
-        
         WriteFile(pipe, static_cast<LPCVOID>(buffer), sizeof(buffer), &bytesWritten, NULL);
         std::cout << "Done!\n";
-        while (ReadFile(pipe, static_cast<LPVOID>(bufferRead), sizeof(bufferRead) - 1, &bytesRead, NULL))
+        while (ReadFile(pipe, static_cast<LPVOID>(buffer), sizeof(double), &bytesRead, NULL))
         {
-            std::cout << "Result: " << buffer << "\n";
-
+            double res;
+            memcpy(&res, buffer, sizeof(double));
+            std::cout << "Result: " << res << "\n";
+            
         }
         
         CloseHandle(pipe);
