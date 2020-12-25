@@ -25,6 +25,7 @@ int main()
                 memcpy(buffer, &result, sizeof(double));
                 // // Convert result to text
                 WriteFile(pipe, static_cast<LPVOID>(buffer), sizeof(double), &bytesWritten, NULL);
+                memset(buffer, 0, sizeof(double));
             }
         }
         DisconnectNamedPipe(pipe);
