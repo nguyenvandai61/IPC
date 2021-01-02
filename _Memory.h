@@ -1,15 +1,17 @@
 #pragma once
 #include <iostream>
+#include <cstring>
 using namespace std;
 class _Memory
 {
 protected:
 	void* p;
+	size_t size;
 	bool createMode;
 
 	string name;
 	string info;
-	void init(const char*, bool);
+	void init(const char*, bool, size_t);
 	virtual void* create(size_t);
 	virtual void* open(size_t);
 	virtual void close();

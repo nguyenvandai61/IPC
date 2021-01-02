@@ -18,15 +18,10 @@ double ProcessB::calc() {
 
 
 
-void ProcessB::run()
-{
-	for (int i = 3000; i < 6000; i++)
-		std::cout << i << "\t\n";
-}
 
 void ProcessB::sendData(double* data, const char* shmName)
 {
-	SharedMemory* sharedMemory = new SharedMemory(shmName, false);
+	SharedMemory* sharedMemory = new SharedMemory(shmName, false, 1024);
 	sharedMemory->write(data);
 	cout << "Noi dung data gui di" <<data <<"\n";
 	//cout <<*(double*) data;
@@ -36,12 +31,18 @@ void ProcessB::sendData(double* data, const char* shmName)
 void* ProcessB::getData(const char* shmName)
 {
 	cout << "Doc du lieu tu SharedMemory\n";
-	SharedMemory* sharedMemory = new SharedMemory(shmName, false);
+	SharedMemory* sharedMemory = new SharedMemory(shmName, false, 1024);
 	void* res = (char*)sharedMemory->read();
 	for (int i = 0; i < 10; i++) {
 		cout << "Gia tri doc duoc: " << *((char*)res+i) << "\n";
 	}
 	return res;
+}
+
+void ProcessB::reset(const char* shmName) 
+{
+	SharedMemory* sharedMemory = new SharedMemory(shmName, false, 1024);
+	sharedMemory->reset();
 }
 
 void ProcessB::process(const char* shmName)
@@ -56,5 +57,9 @@ void ProcessB::process(const char* shmName)
 
 int main(int argc, char* argv[]) {
 	ProcessB* process2 = new ProcessB();
-	process2->process("SharedMemory1");
+	while (true) {
+		process2->process("SharedMemory1");
+		process2->reset("SharedMemory1");
+		system("pause");
+	}	
 }

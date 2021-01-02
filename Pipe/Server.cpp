@@ -16,8 +16,10 @@ int main()
             std::cout << "Client connect successfully!\n";
             DWORD bytesRead = 0;    
             DWORD bytesWritten;
-            while (ReadFile(pipe, static_cast<LPVOID>(buffer), sizeof(buffer) - 1, &bytesRead, NULL)) {
+            while (ReadFile(pipe, static_cast<LPVOID>(buffer), sizeof(buffer), &bytesRead, NULL)) {
                 std::cout << "Expression: " << buffer << std::endl;
+                if (strcmp(buffer, "") == 0) continue;
+
                 result = evaluate->calc(buffer);
                 std::cout << "Result: "<< result << "\n";
                 // Clear buffer

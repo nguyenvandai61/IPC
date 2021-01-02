@@ -21,7 +21,7 @@ class SharedMemory: public _Memory
 
 public: 
 	SharedMemory();
-	SharedMemory(const char* name, bool createMode);
+	SharedMemory(const char* name, bool createMode, size_t);
 	~SharedMemory();
 
 

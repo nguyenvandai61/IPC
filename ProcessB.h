@@ -19,4 +19,5 @@ public:
 	void sendData(double*, const char*);
 	void* getData(const char*);
 	void process(const char* shmName);
+	void reset(const char* shmName);
 };

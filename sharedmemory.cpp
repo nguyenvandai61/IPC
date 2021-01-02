@@ -4,9 +4,9 @@ SharedMemory::SharedMemory()
 {
 
 }
-SharedMemory::SharedMemory(const char* name, bool createMode)
+SharedMemory::SharedMemory(const char* name, bool createMode, size_t size=1024)
 {
-	init(name, createMode);
+	init(name, createMode, size);
 }
 
 SharedMemory::~SharedMemory()
@@ -18,15 +18,15 @@ void* SharedMemory::read()
 {
 	void* pt = open(1024);
 	char* pchar = (char*)pt;
-	cout << "Doc du lieu kieu text\n";
-	for (int i = 0; i < 10; i++) {
-		printf("Data[%d] = %3d\n", i, pchar[i]);
-	}
+	// cout << "Doc du lieu kieu text\n";
+	// for (int i = 0; i < 10; i++) {
+	// 	printf("Data[%d] = %3d\n", i, pchar[i]);
+	// }
 
-	cout << "Doc du lieu kieu double\n";
-	for (int i = 0; i < 10; i++) {
-		printf("Data[%d] = %lf\n", i, *((double*)pt+i));
-	}
+	// cout << "Doc du lieu kieu double\n";
+	// for (int i = 0; i < 10; i++) {
+	// 	printf("Data[%d] = %lf\n", i, *((double*)pt+i));
+	// }
 	return pchar;
 }
 
@@ -38,10 +38,9 @@ bool SharedMemory::write(const char* data)
 
 	cout << "San sang ghi du lieu \n";
 	CopyMemory((PVOID)p, data, strlen(data)* sizeof(char));
-	for (int i = 0; i < 8; i++) {
-		cout << "Data sau khi ghi vao" << *((PVOID*)p+i) << "\n ";
-	}
-	cout << "\nHello\n";
+	// for (int i = 0; i < 8; i++) {
+	// 	cout << "Data sau khi ghi vao" << *((PVOID*)p+i) << "\n ";
+	// }
 	return true;
 }
 
